@@ -3,7 +3,6 @@ public:
     vector<int> findAnagrams(string s, string p) {
         if(s.size()<p.size()) return {};
         vector<int> sh(26,0),ph(26,0),ans;
-        
         int n=size(s),m=size(p);
         for(int i=0;i<m;i++){
             sh[s[i]-'a']++;
