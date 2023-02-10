@@ -10,21 +10,25 @@ using namespace std;
 
 class Solution{
   public:
-     // Function to find majority element in the array
-    // a: input array
-    // size: size of input array
     int majorityElement(int a[], int n)
     {
-        map<int,int> m;
+        int e=0,c=0;
         for(int i=0;i<n;i++){
-            m[a[i]]++;
+            if(c==0){
+                e=a[i];
+            }
+            if(e==a[i]) c++;
+            else c--;
         }
-        for(auto x:m){
-            if(x.second>(n/2)){
-                return x.first;
+        int r=0;
+        for(int i=0;i<n;i++)
+        {
+            if(a[i]==e){
+                r++;
             }
         }
-        return -1;
+        return (r>(n/2))?e:-1;
+        
     }
 };
 
