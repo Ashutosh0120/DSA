@@ -42,10 +42,10 @@ class Solution{
     int getMiddle(Node *head)
     {
         // Your code here
-        Node *s=head, *f=head;
+        Node *s=head,*f=head;
         while(f and f->next){
-            s=s->next;
             f=f->next->next;
+            s=s->next;
         }
         return s->data;
     }
