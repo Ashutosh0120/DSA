@@ -8,33 +8,29 @@ using namespace std;
 
 class Solution {
   public:
-    int c(int arr[], int m, int d,int n){
-        int p=0,md=0;
-        for(int i=0;i<n;i++){
-            if(md+arr[i]<=m){
-                md+=arr[i];
-            }
-            else{
-                md=arr[i];
-                p++;
-            }
-        }
-        p++;
-        return (p<=d);
-    }
     int leastWeightCapacity(int arr[], int n, int d) {
-
+        // code here
         int b=*max_element(arr,arr+n);
         int e=accumulate(arr,arr+n,0);
-        
+        int ans=-1;
         while(b<=e){
-            int m=b+(e-b)/2;
-            if(c(arr,m,d,n)){
-                e=m-1;
+            int m=(b+e)/2;
+            int bo=1,p=0;
+            for(int i=0;i<n;i++){
+                if(arr[i]+p<=m){
+                    p+=arr[i];
+                }
+                else{
+                    bo++;
+                    p=arr[i];
+                }
+            }
+            if(bo<=d){
+                ans=m; e=m-1;
             }
             else b=m+1;
         }
-        return b;
+        return ans;
     }
 };
 
