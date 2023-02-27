@@ -6,12 +6,13 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    void bitManipulation(int num, int i) {
+    void bitManipulation(int n, int i) {
+        // your code here
         int r=(1<<(i-1));
-        int r1=(num>>(i-1))&1;
-        int r2=(num | (1<<(i-1)));
-        int r3=(num&(~r));
-        cout<<r1<<' '<<r2<<' '<<r3;
+        int r1=(n>>(i-1))&1;
+        int r2=(n|((1<<(i-1))));
+        int r3=(n&~(r));
+        cout<<r1<<' '<<r2<<" "<<r3;
     }
 };
 
