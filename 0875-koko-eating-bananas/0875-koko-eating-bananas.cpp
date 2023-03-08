@@ -2,15 +2,17 @@ class Solution {
 public:
     int minEatingSpeed(vector<int>& p, int h) {
         int l=1;
-        int e=*max_element(begin(p),end(p));
+        int e=1e9;
+        int ans=0;
         while(l<=e){
             int m=l+(e-l)/2;
             if(c(p,h,m)) {
                 e=m-1;
+                ans=m;
             }
             else l=m+1;
         }
-        return l;
+        return ans;
     }
     bool c(vector<int>&p,int h,int m){
         long ans=0;
