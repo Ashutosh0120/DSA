@@ -1,19 +1,19 @@
 class Solution {
 public:
     int longestNiceSubarray(vector<int>& nums) {
-        int n=0;
-        int ans=0;
-        int j=0;
-        int i=0;
-        while(i<size(nums)){
-            while((nums[i]&n)) {
-                n^=nums[j];
-                j++;
+        int i=0, j=0;
+        int n=size(nums);
+        int mx=INT_MIN;
+        int p=0;
+        while(j<n){
+            while(nums[j]&p){
+                p=p^nums[i];
+                i++;
             }
-            n|=nums[i];
-            ans=max(ans,i-j+1);
-            i++;
+            p=p|(nums[j]);
+            mx=max(mx,j-i+1);
+            j++;
         }
-        return ans;
+        return mx;
     }
 };
