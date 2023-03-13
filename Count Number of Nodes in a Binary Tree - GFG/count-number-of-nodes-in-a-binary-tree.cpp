@@ -27,17 +27,28 @@ struct Node {
 
 class Solution {
   public:
-    void g(Node * t, int &c){
-        if(!t) return ;
-        c++;
-        if(t->left) g(t->left,c);
-        if(t->right) g(t->right,c);
-    }
     int countNodes(Node* root) {
-        // Write your code here
-        int c=0;
-        g(root,c);
-        return c;
+        if(!root) return 0;
+        int l=a(root);
+        int r=b(root);
+        if(l==r) return (1<<l)-1;
+        return 1+countNodes(root->left)+countNodes(root->right);
+    }
+    int a(Node *t){
+        int h=0;
+        while(t){
+            h++;
+            t=t->left;
+        }
+        return h;
+    }
+    int b(Node *t){
+        int h=0;
+        while(t){
+            h++;
+            t=t->right;
+        }
+        return h;
     }
 };
 
