@@ -12,10 +12,10 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
-        return (!root) or (g(root->left,root->right));
+        return (!root or (g(root->left,root->right)));
     }
-    bool g(TreeNode *a,TreeNode *b){
-        if(a==NULL or b==NULL) return a==b;
+    bool g(TreeNode *a, TreeNode *b){
+        if(!a or !b) return a==b;
         if(a->val != b->val) return 0;
         return g(a->left,b->right) and g(a->right,b->left);
     }
