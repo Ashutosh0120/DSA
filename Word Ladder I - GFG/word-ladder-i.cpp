@@ -6,24 +6,24 @@ using namespace std;
 class Solution {
 public:
     int wordLadderLength(string b, string e, vector<string>& l) {
+        // Code here
         queue<pair<string,int>> q;
-        unordered_set<string> m(l.begin(),l.end());
-        m.erase(b);
         q.push({b,1});
+        unordered_set<string>s(begin(l),end(l));
+        s.erase(b);
         while(!q.empty()){
             string a=q.front().first;
-            int s=q.front().second;
+            int p=q.front().second;
             q.pop();
-            if(a==e){
-                return s;
-            }
-            for(int i=0;i<a.size();i++){
+            if(a==e) return p;
+            int x=a.size();
+            for(int i=0;i<x;i++){
                 char o=a[i];
-                for(char x='a';x<='z';x++){
-                    a[i]=x;
-                    if(m.find(a)!=m.end()){
-                        q.push({a,s+1});
-                        m.erase(a);
+                for(char c='a';c<='z';c++){
+                    a[i]=c;
+                    if(s.find(a)!=s.end()){
+                        s.erase(a);
+                        q.push({a,p+1});
                     }
                 }
                 a[i]=o;
