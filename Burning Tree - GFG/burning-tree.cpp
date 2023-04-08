@@ -96,14 +96,16 @@ struct Node {
 */
 class Solution {
   public:
-    Node *p(Node *root,unordered_map<Node*,Node*> &pm,int target){
-        queue<Node *> q;
-        q.push(root);
+    Node * f(Node *root, int target, unordered_map<Node*,Node*> &pm){
         Node *e;
+        queue<Node *>q;
+        q.push(root);
         while(!q.empty()){
             Node *c=q.front(); q.pop();
-            if(c->data==target) e=c;
-            if(c->left) {
+            if(c->data==target) {
+                e=c;
+            }
+            if(c->left){
                 pm[c->left]=c;
                 q.push(c->left);
             }
@@ -117,10 +119,10 @@ class Solution {
     int minTime(Node* root, int target) 
     {
         unordered_map<Node*,Node*> pm;
-        Node *t=p(root,pm,target);
-        unordered_map<Node*,int>v;
+        Node *t=f(root,target,pm);
+        unordered_map<Node*, int> v;
         int l=0;
-        queue<Node*>q;
+        queue<Node*> q;
         q.push(t);
         v[t]=1;
         while(!q.empty()){
