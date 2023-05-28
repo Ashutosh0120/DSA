@@ -9,48 +9,31 @@ using namespace std;
 
 class Solution{
 public:
-    int dr[4]={1,0,-1,0},dc[4]={0,-1,0,1};
-
-    void dfs(int r, int c, vector<vector<int>> &v,vector<vector<char>>& mat){
-        v[r][c]=1;
-        int n=mat.size(), m=mat[0].size();
-        for(int i=0;i<4;i++)
-        {
-            int nr=dr[i]+r;
-            int nc=dc[i]+c;
-            if(nr>=0 and nr<n and nc>=0 and nc<m and !v[nr][nc] and mat[nr][nc]=='O'){
-                dfs(nr,nc,v,mat);
-            }
-        }
-    }
-    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
+    void dfs(int i, int j, vector<vector<int>> &v,vector<vector<char>> &g)
     {
-        // code here
+        if(i<0 or j<0 or i>=g.size() or j>=g[0].size()) return ;
+        if(v[i][j] or g[i][j]=='X') return ;
+        v[i][j]=1;
+        dfs(i+1,j,v,g);dfs(i-1,j,v,g);dfs(i,j+1,v,g);dfs(i,j-1,v,g);
+    }
+    vector<vector<char>> fill(int n, int m, vector<vector<char>> g)
+    {
         vector<vector<int>> v(n,vector<int>(m,0));
-        for(int j=0;j<m;j++){
-            if(!v[0][j] and mat[0][j]=='O'){
-                dfs(0,j,v,mat);
-            }
-            if(!v[n-1][j] and mat[n-1][j]=='O'){
-                dfs(n-1,j,v,mat);
-            }
-        }
+        
         for(int i=0;i<n;i++){
-            if(!v[i][0] and mat[i][0]=='O'){
-                dfs(i,0,v,mat);
-            }
-            if(!v[i][m-1] and mat[i][m-1]=='O'){
-                dfs(i,m-1,v,mat);
-            }
+            if(!v[i][0] and g[i][0]=='O') dfs(i,0,v,g);
+            if(!v[i][m-1] and g[i][m-1]=='O') dfs(i,m-1,v,g);
+        }
+        for(int j=0;j<m;j++){
+            if(!v[0][j] and g[0][j]=='O') dfs(0,j,v,g);
+            if(!v[n-1][j] and g[n-1][j]=='O') dfs(n-1,j,v,g);
         }
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(!v[i][j] and mat[i][j]=='O'){
-                    mat[i][j]='X';
-                }
+                if(!v[i][j] and g[i][j]=='O') g[i][j]='X';
             }
         }
-        return mat;
+        return g;
     }
 };
 
