@@ -10,14 +10,15 @@ using namespace std;
 
 class Solution {
   public:
-    int binarysearch(int arr[], int n, int k) {
+    int binarysearch(int v[], int n, int k) {
         // code here
-        int b=0, e=n-1;
-        while(b<=e){
-            int m=(b+e)/2;
-            if(arr[m]==k) return m;
-            else if(arr[m]<k) b=m+1;
-            else e=m-1;
+        int l=0, r=n-1;
+        
+        while(l<=r){
+            int m=(l+r)/2;
+            if(v[m]==k) return m;
+            else if(v[m]<k) l=m+1;
+            else r=m-1;
         }
         return -1;
     }
