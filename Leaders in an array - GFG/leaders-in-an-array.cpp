@@ -13,16 +13,13 @@ class Solution{
     public:
     vector<int> leaders(int a[], int n){
         // Code here
-        int mx=a[n-1];
-        vector<int> aa;
-        aa.push_back(mx);
+        vector<int> v;
+        v.push_back(a[n-1]);
         for(int i=n-2;i>=0;i--){
-            if(aa.back()<=a[i]){
-                aa.push_back(a[i]);
-            }
+            if(a[i]>=v.back()) v.push_back(a[i]);
         }
-        reverse(begin(aa),end(aa));
-        return aa;
+         reverse(v.begin(),v.end());
+         return v;
     }
 };
 
