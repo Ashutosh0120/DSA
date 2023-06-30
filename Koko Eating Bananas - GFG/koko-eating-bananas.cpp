@@ -5,33 +5,29 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int c(int m,vector<int> &v,int h){
-        int c=0;
-        //  int n=size(v);
+    int f(int m, vector<int>&v, int k){
+        int a=0;
         int n=v.size();
         for(int i=0;i<n;i++)
         {
-            c+=(v[i]/m);
-            if((v[i]%m)!=0) c++;
+            a+=(v[i]/m);
+            if(v[i]%m!=0) a++; 
         }
-        return (c<=h);
+        return a<=k;
     }
-    int Solve(int n, vector<int>& v, int h) {
-        // int n=size(v);
-        int b=1, e=*max_element(begin(v),end(v));
-        int ans=-1;
-        while(b<=e){
-            int m=b+(e-b)/2;
-            if(c(m,v,h)){
+    int Solve(int n, vector<int>& v, int k) {
+        // Code here
+        int l=1, h=1e9;
+        int ans=0;
+        while(l<=h){
+            int m=l+(h-l)/2;
+            if(f(m,v,k)) {
                 ans=m;
-                e=m-1;
+                h=m-1;
             }
-            else {
-                b=m+1;
-            }
+            else l=m+1;
         }
         return ans;
-        // Code here
     }
 };
 
