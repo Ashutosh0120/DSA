@@ -6,23 +6,19 @@ using namespace std;
 class Solution {
   public:
     string removeOuter(string& s) {
-        // code here
+        int n=s.size();
+        stack<char>t;
         string ans="";
-        stack<char> st;
-        for(int i=0;i<s.size();i++){
+        for(int i=0;i<n;i++){
             char c=s[i];
             if(c=='('){
-                if(!st.empty()){
-                    ans+=c;
-                }
-                
-                st.push(c);
+                if(!t.empty()) ans+=c;
+                t.push(c);
+                // ans+=c;
             }
-            else {
-                st.pop();
-                if(!st.empty()){
-                    ans+=c;
-                }
+            else if(c==')'){
+                t.pop();
+                if(!t.empty()) ans+=c;
             }
         }
         return ans;
