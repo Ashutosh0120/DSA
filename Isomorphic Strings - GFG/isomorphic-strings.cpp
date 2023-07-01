@@ -13,25 +13,20 @@ class Solution
 {
     public:
     //Function to check if two strings are isomorphic.
-    bool c(string a, string b){
+    bool f(string a, string b){
+        if(a.size()!=b.size()) return 0;
         map<char,char> m;
-        int n=a.size();
-        if(a.size()!=b.size()){
-            return 0;
-        }
-        for(int i=0;i<n;i++){
-            if(m.find(a[i])!=m.end()){
+        for(int i=0;i<a.size();i++){
+            if(m.find(a[i])==m.end()) m[a[i]]=b[i];
+            else {
                 if(m[a[i]]!=b[i]) return 0;
-            }
-            else{
-                m[a[i]]=b[i];
             }
         }
         return 1;
     }
     bool areIsomorphic(string a, string b)
     {
-        return c(a,b) and c(b,a);
+        return f(a,b) and f(b,a);   
     }
 };
 
