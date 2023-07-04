@@ -7,26 +7,22 @@ class Solution {
   public:
     int characterReplacement(string s, int k) {
         // code here
-        int l=0, r=0;
+        int b=0,e=0;
         map<char,int> m;
         int n=s.size();
-        int c=0;
-        int ans=0;
-        while(r<n)
-        {
-            m[s[r]]++;
-            c=max(c,m[s[r]]);
-            if((r-l+1-c)>k){
-                m[s[l]]--;
-                l++;
+        int mx=0,a=0;
+        while(e<n){
+            m[s[e]]++;
+            mx=max(mx,m[s[e]]);
+            while((e-b+1-mx)>k){
+                m[s[b]]--;
+                if(m[s[b]]==0)m.erase(s[b]);
+                b++;
             }
-            else{
-                ans=max(ans,r-l+1);
-            }
-            r++;
+            a=max(a,e-b+1);
+            e++;
         }
-        return ans;
-        
+        return a;
     }
 };
 
