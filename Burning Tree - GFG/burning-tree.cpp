@@ -81,71 +81,62 @@ Node *buildTree(string str) {
 
 // } Driver Code Ends
 //User function Template for C++
-
-/*
-struct Node {
-    int data;
-    Node *left;
-    Node *right;
-
-    Node(int val) {
-        data = val;
-        left = right = NULL;
-    }
-};
-*/
 class Solution {
   public:
-    Node * f(Node *root, int target, unordered_map<Node*,Node*> &pm){
-        Node *e;
-        queue<Node *>q;
-        q.push(root);
-        while(!q.empty()){
-            Node *c=q.front(); q.pop();
-            if(c->data==target) {
-                e=c;
-            }
-            if(c->left){
-                pm[c->left]=c;
-                q.push(c->left);
-            }
-            if(c->right){
-                pm[c->right]=c;
-                q.push(c->right);
-            }
-        }
-        return e;
-    }
-    int minTime(Node* root, int target) 
-    {
-        unordered_map<Node*,Node*> pm;
-        Node *t=f(root,target,pm);
-        unordered_map<Node*, int> v;
-        int l=0;
-        queue<Node*> q;
+    Node* f(Node *t, unordered_map<Node*,Node*> &pa,int p){
+        queue<Node*>q;
         q.push(t);
-        v[t]=1;
+        Node *k;
         while(!q.empty()){
             int s=q.size();
-            for(int i=0;i<s;i++){
-                Node *c=q.front(); q.pop();
-                
-                if(!v[c->left] and c->left){
-                    v[c->left]=1;
-                    q.push(c->left);
+            while(s--){
+                Node *t=q.front(); q.pop();
+                if(p==t->data)
+                {
+                    k=t;
                 }
-                if(!v[c->right] and c->right){
-                    v[c->right]=1;
-                    q.push(c->right);
+                if(t->left){
+                    q.push(t->left);
+                    pa[t->left]=t;
                 }
-                if(pm[c] and !v[pm[c]]){
-                    v[pm[c]]=1;
-                    q.push(pm[c]);
+                if(t->right){
+                    q.push(t->right);
+                    pa[t->right]=t;
                 }
             }
-            l++;
         }
-        return l-1;
+        return k;
+    }
+    int minTime(Node* root, int t) 
+    {
+        int ans=0;
+        unordered_map<Node*,Node*> pa;
+        Node *t1=f(root,pa,t);
+        unordered_map<Node*,bool> v;
+        v[t1]=1;
+        queue<Node*>q;
+        q.push(t1);
+        while(!q.empty())
+        {
+            int s=q.size();
+            while(s--){
+                Node *x=q.front(); q.pop();
+                if(x->left and !v[x->left]){
+                    q.push(x->left);
+                    v[x->left]=1;
+                }
+                if(x->right and !v[x->right]){
+                    q.push(x->right);
+                    v[x->right]=1;
+                }
+                if(pa[x] and !v[pa[x]]){
+                    q.push(pa[x]);
+                    v[pa[x]]=1;
+                }
+            }
+            ans++;
+        }
+        return ans-1;
     }
 };
 
